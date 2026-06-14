@@ -1,4 +1,4 @@
-Jospital Management - Simple
+Hospital Management - Simple
 =============================
 
 Project Summary
