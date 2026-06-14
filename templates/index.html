@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Management System</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #22c55e;
+            --text: #374151;
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --radius: 0px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            min-height: 100vh;
+            background-image:
+                linear-gradient(135deg, rgba(245, 243, 255, 0.95), rgba(255, 247, 237, 0.95)),
+                url('/static/hms1.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .card {
+            border-radius: 0;
+            background: var(--card-bg);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            margin-bottom: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            color: #fff;
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            border-color: var(--secondary);
+            color: #fff;
+        }
+
+        .btn-custom {
+            border-radius: 4px;
+            padding: 8px 20px;
+            font-weight: 600;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 4px;
+            border: 2px solid #f0f3f6;
+        }
+
+        .nav-pills .nav-link {
+            border-radius: 4px;
+            color: #888;
+            font-weight: 600;
+            padding: 7px 18px;
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: var(--primary);
+            color: #fff;
+        }
+
+        .badge {
+            border-radius: 4px;
+            padding: 5px 10px;
+            font-weight: 600;
+        }
+
+        .navbar {
+            background: linear-gradient(90deg, #4f6df5, #6f7ff7);
+            border-radius: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(3px);
+            z-index: 1040;
+        }
+
+        .modal {
+            z-index: 1050;
+        }
+    </style>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app2">
+        {% raw %}
+        <nav class="navbar py-3 shadow-sm" v-if="user">
+            <div class="container d-flex justify-content-between align-items-center">
+                <a class="navbar-brand fw-bold text-white d-flex align-items-center gap-2" href="/">
+                    <img src="/static/images/logo.png" style="height:45px;width:45px;">
+                    HMS Portal
+                </a>
+                <div class="d-flex align-items-center gap-3">
+                    <div class="text-white text-end">
+                        <div class="small fw-bold">{{ user.username }}</div>
+                        <div class="badge bg-white text-primary" style="font-size:0.65rem">{{ user.role.toUpperCase() }}
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-light rounded-pill px-3 fw-bold" @click="logout">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container py-2">
+            <login-form v-if="!user" @login-success="onLoginSuccess"></login-form>
+            <admin-dashboard v-if="user && user.role==='admin'" :token="token"></admin-dashboard>
+            <doctor-dashboard v-if="user && user.role==='doctor'" :token="token"></doctor-dashboard>
+            <patient-dashboard v-if="user && user.role==='patient'" :token="token"></patient-dashboard>
+            <celery-test v-if="user" :token="token"></celery-test>
+        </div>
+        {% endraw %}
+    </div>
+
+    <script src="/static/js/components/LoginForm.js?v=13"></script>
+    <script src="/static/js/components/AdminDashboard.js?v=13"></script>
+    <script src="/static/js/components/DoctorDashboard.js?v=13"></script>
+    <script src="/static/js/components/PatientDashboard.js?v=13"></script>
+    <script src="/static/js/components/CeleryTest.js?v=13"></script>
+    <script src="/static/js/app.js?v=13"></script>
+</body>
+
+</html>
