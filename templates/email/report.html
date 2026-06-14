@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<body style="font-family: Arial, sans-serif; color: #333; line-height: 1.6; margin: 0; padding: 20px;">
+
+    <!-- Logo Header -->
+    <div style="background-color: #f8f9fa; padding: 15px 20px; border-left: 5px solid #0d6efd; margin-bottom: 20px;">
+        <h2 style="color: #0d6efd; margin: 0; font-size: 24px; letter-spacing: 1px;">
+            <span
+                style="display: inline-block; background: #0d6efd; color: #fff; border-radius: 4px; padding: 0 8px; margin-right: 8px;">✚</span>HMS
+        </h2>
+    </div>
+
+    <p>Hi {{ doctor_name }},</p>
+
+    <p>Here is your monthly activity report for <strong>{{ month }}</strong>.</p>
+
+    <p><strong>Total Appointments:</strong> {{ total_appointments }}</p>
+
+    {% if top_diagnoses %}
+    <p><strong>Top Diagnoses:</strong></p>
+    <ul>
+        {% for diagnosis, count in top_diagnoses %}
+        <li>{{ diagnosis|capitalize }}: {{ count }} cases</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <p><strong>Appointments List:</strong></p>
+    <table border="1" cellpadding="5" cellspacing="0"
+        style="border-collapse: collapse; width: 100%; font-size: 14px; text-align: left;">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Patient</th>
+                <th>Status</th>
+                <th>Diagnosis</th>
+                <th>Prescription</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for appt in appointments %}
+            <tr>
+                <td>{{ appt.date }}</td>
+                <td>{{ appt.time }}</td>
+                <td>{{ appt.patient_name }}</td>
+                <td>{{ appt.status }}</td>
+                <td>{{ appt.diagnosis }}</td>
+                <td>{{ appt.prescription }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6" style="text-align: center;">No appointments this month.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+    <p>Best regards,<br>HMS Team</p>
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <p>Hi {{ name }},</p>
+    <p>This is your medical report for your visit with {{ doctor_name }} on {{ date }}.</p>
+    <p><strong>Diagnosis:</strong> {{ diagnosis }}</p>
+    <p><strong>Prescription:</strong> {{ prescription }}</p>
+    {% if notes %}
+    <p><strong>Doctor's Notes:</strong> {{ notes }}</p>
+    {% endif %}
+    {% if next_visit != "N/A" %}
+    <p><strong>Next Visit:</strong> {{ next_visit }}</p>
+    {% endif %}
+    <p>Best regards,<br>HMS Team</p>
+</body>
+
+</html>
